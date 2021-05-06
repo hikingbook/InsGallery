@@ -253,7 +253,7 @@ public class PictureSelectorInstagramStyleActivity extends PictureBaseActivity i
         mList.add(new PageGallery(mInstagramGallery));
         PagePhoto pagePhoto = new PagePhoto(this, config);
         mList.add(pagePhoto);
-        mList.add(new PageVideo(pagePhoto));
+//        mList.add(new PageVideo(pagePhoto));
         mInstagramViewPager = new InstagramViewPager(getContext(), mList, config);
         ((RelativeLayout) container).addView(mInstagramViewPager, params);
 
@@ -282,7 +282,7 @@ public class PictureSelectorInstagramStyleActivity extends PictureBaseActivity i
             }
         });
 
-        mInstagramViewPager.setSkipRange(1);
+        mInstagramViewPager.setSkipRange(2);
         mInstagramViewPager.setOnPageChangeListener(new OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -299,9 +299,10 @@ public class PictureSelectorInstagramStyleActivity extends PictureBaseActivity i
                 }
                 if (position == 1) {
                     ((PagePhoto) mList.get(1)).setCaptureButtonTranslationX(-positionOffsetPixels);
-                } else if (position == 2 && positionOffsetPixels == 0) {
-                    ((PagePhoto) mList.get(1)).setCaptureButtonTranslationX(-mInstagramViewPager.getMeasuredWidth());
                 }
+//                else if (position == 2 && positionOffsetPixels == 0) {
+//                    ((PagePhoto) mList.get(1)).setCaptureButtonTranslationX(-mInstagramViewPager.getMeasuredWidth());
+//                }
             }
 
             @Override
@@ -312,9 +313,10 @@ public class PictureSelectorInstagramStyleActivity extends PictureBaseActivity i
                 changeTabState(position);
                 if (position == 1) {
                     ((PagePhoto) mList.get(1)).setCameraState(InstagramCameraView.STATE_CAPTURE);
-                } else if (position == 2) {
-                    ((PagePhoto) mList.get(1)).setCameraState(InstagramCameraView.STATE_RECORDER);
                 }
+//                else if (position == 2) {
+//                    ((PagePhoto) mList.get(1)).setCameraState(InstagramCameraView.STATE_RECORDER);
+//                }
             }
         });
 
@@ -441,10 +443,12 @@ public class PictureSelectorInstagramStyleActivity extends PictureBaseActivity i
         if (position == 1) {
             title = getString(R.string.photo);
             enable = false;
-        } else if (position == 2) {
-            title = getString(R.string.video);
-            enable = false;
-        } else {
+        }
+//        else if (position == 2) {
+//            title = getString(R.string.video);
+//            enable = false;
+//        }
+        else {
             title = mTitle;
             enable = true;
         }
