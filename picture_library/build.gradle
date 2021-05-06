@@ -1,13 +1,13 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion cfgs.compileSdkVersion
+    compileSdkVersion 29
 
     defaultConfig {
-        minSdkVersion cfgs.minSdkVersion
-        targetSdkVersion cfgs.targetSdkVersion
-        versionCode cfgs.versionCode
-        versionName cfgs.versionName
+        minSdkVersion 19
+        targetSdkVersion 29
+        versionCode 35
+        versionName "0.7.0"
     }
 
     compileOptions {
@@ -29,17 +29,17 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "androidx.appcompat:appcompat:${cfgs.version_appcompat}"
-    implementation "androidx.recyclerview:recyclerview:${cfgs.version_recyclerview}"
-    implementation "androidx.concurrent:concurrent-futures:${cfgs.futures_version}"
-    implementation "com.squareup.okio:okio:${cfgs.okio_version}"
-    implementation "androidx.camera:camera-lifecycle:${cfgs.camerax_version}"
-    implementation "androidx.localbroadcastmanager:localbroadcastmanager:${cfgs.localbroadcastmanager}"
-    implementation "androidx.camera:camera-view:${cfgs.camerax_view}"
+    implementation "androidx.appcompat:appcompat:1.2.0"
+    implementation "androidx.recyclerview:recyclerview:1.2.0"
+    implementation "androidx.concurrent:concurrent-futures:1.1.0"
+    implementation "com.squareup.okio:okio:2.10.0"
+    implementation "androidx.camera:camera-lifecycle:1.0.0-beta07"
+    implementation "androidx.localbroadcastmanager:localbroadcastmanager:1.0.0"
+    implementation "androidx.camera:camera-view:1.0.0-alpha14"
     api project(':ucrop')
     api 'com.otaliastudios:transcoder:0.9.1'
 //    api 'com.googlecode.mp4parser:isoparser:1.1.22'
     api 'jp.co.cyberagent.android:gpuimage:2.0.4'
 }
 
-apply from: 'bintray.gradle'
+//apply from: 'bintray.gradle'
