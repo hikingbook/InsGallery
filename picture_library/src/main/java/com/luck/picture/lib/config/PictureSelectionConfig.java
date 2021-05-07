@@ -10,6 +10,7 @@ import com.luck.picture.lib.engine.CacheResourcesEngine;
 import com.luck.picture.lib.engine.ImageEngine;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.instagram.InstagramSelectionConfig;
+import com.luck.picture.lib.listener.OnCurrentFilterListener;
 import com.luck.picture.lib.listener.OnCurrentSelectedResultListener;
 import com.luck.picture.lib.listener.OnCustomCameraInterfaceListener;
 import com.luck.picture.lib.listener.OnResultCallbackListener;
@@ -108,6 +109,7 @@ public final class PictureSelectionConfig implements Parcelable {
     public static CacheResourcesEngine cacheResourcesEngine;
     public static OnResultCallbackListener listener;
     public static OnCurrentSelectedResultListener currentSelectedImageListener;
+    public static OnCurrentFilterListener currentFilterListener;
     public static OnVideoSelectedPlayCallback customVideoPlayCallback;
     public static OnCustomCameraInterfaceListener onCustomCameraInterfaceListener;
     public List<LocalMedia> selectionMedias;

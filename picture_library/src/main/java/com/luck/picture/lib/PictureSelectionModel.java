@@ -13,6 +13,7 @@ import com.luck.picture.lib.engine.CacheResourcesEngine;
 import com.luck.picture.lib.engine.ImageEngine;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.instagram.InstagramSelectionConfig;
+import com.luck.picture.lib.listener.OnCurrentFilterListener;
 import com.luck.picture.lib.listener.OnCurrentSelectedResultListener;
 import com.luck.picture.lib.listener.OnCustomCameraInterfaceListener;
 import com.luck.picture.lib.listener.OnResultCallbackListener;
@@ -1321,6 +1322,11 @@ public class PictureSelectionModel {
 
     public PictureSelectionModel currentSelectedImagesResult(OnCurrentSelectedResultListener listener) {
         PictureSelectionConfig.currentSelectedImageListener = new WeakReference<>(listener).get();
+        return this;
+    }
+
+    public PictureSelectionModel currentFilterResult(OnCurrentFilterListener listener) {
+        PictureSelectionConfig.currentFilterListener = new WeakReference<>(listener).get();
         return this;
     }
 
