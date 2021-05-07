@@ -217,9 +217,19 @@ public class InstagramImageGridAdapter extends RecyclerView.Adapter<RecyclerView
 
             if (config.enablePreview || config.enPreviewVideo || config.enablePreviewAudio) {
                 contentHolder.btnCheck.setOnClickListener(v -> {
+                    boolean result = true;
                     if (isFastDoubleClick()) {
                         return;
                     }
+
+                    if (PictureSelectionConfig.currentSelectedImageListener != null) {
+                        result = PictureSelectionConfig.currentSelectedImageListener.onResult(selectImages);
+                    }
+
+                    if (!result) {
+                        return;
+                    }
+
                     // 如原图路径不存在或者路径存在但文件不存在
                     String newPath = SdkVersionUtils.checkedAndroid_Q()
                             ? PictureFileUtils.getPath(context, Uri.parse(path)) : path;

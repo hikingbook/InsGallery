@@ -13,6 +13,7 @@ import com.luck.picture.lib.engine.CacheResourcesEngine;
 import com.luck.picture.lib.engine.ImageEngine;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.instagram.InstagramSelectionConfig;
+import com.luck.picture.lib.listener.OnCurrentSelectedResultListener;
 import com.luck.picture.lib.listener.OnCustomCameraInterfaceListener;
 import com.luck.picture.lib.listener.OnResultCallbackListener;
 import com.luck.picture.lib.listener.OnVideoSelectedPlayCallback;
@@ -1316,6 +1317,11 @@ public class PictureSelectionModel {
                     windowAnimationStyle.activityEnterAnimation :
                     R.anim.picture_anim_enter, R.anim.picture_anim_fade_in);
         }
+    }
+
+    public PictureSelectionModel currentSelectedImagesResult(OnCurrentSelectedResultListener listener) {
+        PictureSelectionConfig.currentSelectedImageListener = new WeakReference<>(listener).get();
+        return this;
     }
 
     /**
