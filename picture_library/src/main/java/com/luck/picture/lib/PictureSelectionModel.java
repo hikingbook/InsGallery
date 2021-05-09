@@ -1,3 +1,9 @@
+/**
+ * Author by robin, Date on 5/9/21.
+ * Comment:
+ *  - Create the currentSelectedImagesResult()
+ *  - Create the currentFilterResult()
+ */
 package com.luck.picture.lib;
 
 import android.app.Activity;

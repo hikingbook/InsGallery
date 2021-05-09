@@ -1,3 +1,7 @@
+/**
+ * Author by robin, Date on 5/9/21.
+ * Comment: Disable the video in viewpager
+ */
 package com.luck.picture.lib.instagram;
 
 import android.Manifest;

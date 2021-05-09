@@ -1,3 +1,8 @@
+/**
+ * Author by robin, Date on 5/9/21.
+ * Comment:
+ *  - Create the currentSelectedImagesResult()
+ */
 package com.luck.picture.lib.instagram;
 
 import android.animation.Animator;
