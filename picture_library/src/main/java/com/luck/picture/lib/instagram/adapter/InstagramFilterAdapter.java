@@ -55,13 +55,9 @@ public class InstagramFilterAdapter extends RecyclerView.Adapter<InstagramFilter
     public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Holder holder = new Holder(new FilterItemView(mContext, mConfig));
         holder.itemView.setOnClickListener(v -> {
-            boolean result = true;
-            if (PictureSelectionConfig.currentFilterListener != null) {
-                result = PictureSelectionConfig.currentFilterListener.onResult(mFilters.get(holder.getAdapterPosition()));
-            }
 
-            if (!result) {
-                return;
+            if (PictureSelectionConfig.currentFilterListener != null) {
+                PictureSelectionConfig.currentFilterListener.setSelectedFilter(mFilters.get(holder.getAdapterPosition()));
             }
 
             if (mOnItemClickListener != null) {

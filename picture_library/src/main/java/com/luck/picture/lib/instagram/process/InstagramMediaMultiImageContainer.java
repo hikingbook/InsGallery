@@ -197,6 +197,16 @@ public class InstagramMediaMultiImageContainer extends FrameLayout implements In
         if (isLoadingBitmap || isApplyingFilter) {
             ToastUtils.s(getContext(), getContext().getString(R.string.next_alert));
         } else {
+            boolean result = true;
+
+            if (PictureSelectionConfig.currentFilterListener != null) {
+                result = PictureSelectionConfig.currentFilterListener.onResult();
+            }
+
+            if (!result) {
+                return;
+            }
+
             new PictureLoadingDialog(getContext()).show();
             new SaveBitmapsTask(getContext().getApplicationContext(), activity,"Filters", mMediaAdapter.getBitmaps(), mLoadedMedias).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }

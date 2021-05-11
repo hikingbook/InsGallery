@@ -165,6 +165,16 @@ public class InstagramMediaSingleImageContainer extends FrameLayout implements I
     }
 
     public void onSaveImage(GPUImageView.OnPictureSavedListener listener) {
+        boolean result = true;
+
+        if (PictureSelectionConfig.currentFilterListener != null) {
+            result = PictureSelectionConfig.currentFilterListener.onResult();
+        }
+
+        if (!result) {
+            return;
+        }
+
         String fileName = System.currentTimeMillis() + ".jpg";
         new SaveTask(getContext().getApplicationContext(), "Filters", fileName, listener).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
