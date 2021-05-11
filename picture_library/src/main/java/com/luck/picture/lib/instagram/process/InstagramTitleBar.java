@@ -72,11 +72,11 @@ public class InstagramTitleBar extends FrameLayout {
             textColor = config.style.pictureRightDefaultTextColor;
         } else {
             if (config.instagramSelectionConfig.getCurrentTheme() == InsGallery.THEME_STYLE_DARK) {
-                textColor = ContextCompat.getColor(context, R.color.picture_color_1766FF);
+                textColor = ContextCompat.getColor(context, R.color.picture_color_hikingbook);
             } else if (config.instagramSelectionConfig.getCurrentTheme() == InsGallery.THEME_STYLE_DARK_BLUE) {
-                textColor = Color.parseColor("#2FA6FF");
+                textColor = Color.parseColor("#DF443B");
             } else {
-                textColor = ContextCompat.getColor(context, R.color.picture_color_1766FF);
+                textColor = ContextCompat.getColor(context, R.color.picture_color_hikingbook);
             }
         }
         mRightView.setTextColor(textColor);

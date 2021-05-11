@@ -21,6 +21,7 @@ import com.luck.picture.lib.style.PictureWindowAnimationStyle;
 
 import java.util.List;
 
+import androidx.annotation.DrawableRes;
 import androidx.core.content.ContextCompat;
 
 /**
@@ -110,7 +111,7 @@ public final class InsGallery {
     public static PictureSelectionModel applyInstagramOptions(Context context, InstagramSelectionConfig instagramConfig, PictureSelectionModel selectionModel) {
         return selectionModel
                 .setInstagramConfig(instagramConfig)
-                .setPictureStyle(createInstagramStyle(context))// 动态自定义相册主题
+                .setPictureStyle(createInstagramStyle(context, R.drawable.picture_close))// 动态自定义相册主题
                 .setPictureCropStyle(createInstagramCropStyle(context))// 动态自定义裁剪主题
                 .setPictureWindowAnimationStyle(new PictureWindowAnimationStyle())// 自定义相册启动退出动画
                 .isWithVideoImage(false)// 图片和视频是否可以同选,只在ofAll模式下有效
@@ -159,7 +160,7 @@ public final class InsGallery {
                 ;
     }
 
-    public static PictureParameterStyle createInstagramStyle(Context context) {
+    public static PictureParameterStyle createInstagramStyle(Context context, @DrawableRes int closeIcon) {
         // 相册主题
         PictureParameterStyle mPictureParameterStyle = new PictureParameterStyle();
         // 是否改变状态栏字体颜色(黑白切换)
@@ -195,7 +196,7 @@ public final class InsGallery {
         // 相册文件夹列表选中圆点
         mPictureParameterStyle.pictureFolderCheckedDotStyle = R.drawable.picture_orange_oval;
         // 相册返回箭头
-        mPictureParameterStyle.pictureLeftBackIcon = R.drawable.picture_close;
+        mPictureParameterStyle.pictureLeftBackIcon = closeIcon;
         // 标题栏字体颜色
         if (currentTheme == THEME_STYLE_DARK) {
             mPictureParameterStyle.pictureTitleTextColor = ContextCompat.getColor(context, R.color.picture_color_white);
@@ -206,11 +207,11 @@ public final class InsGallery {
         }
         // 相册右侧取消按钮字体颜色  废弃 改用.pictureRightDefaultTextColor和.pictureRightDefaultTextColor
         if (currentTheme == THEME_STYLE_DARK) {
-            mPictureParameterStyle.pictureRightDefaultTextColor = ContextCompat.getColor(context, R.color.picture_color_1766FF);
+            mPictureParameterStyle.pictureRightDefaultTextColor = ContextCompat.getColor(context, R.color.picture_color_hikingbook);
         } else if (currentTheme == THEME_STYLE_DARK_BLUE) {
-            mPictureParameterStyle.pictureRightDefaultTextColor = Color.parseColor("#2FA6FF");
+            mPictureParameterStyle.pictureRightDefaultTextColor = ContextCompat.getColor(context, R.color.picture_color_hikingbook);
         } else {
-            mPictureParameterStyle.pictureRightDefaultTextColor = ContextCompat.getColor(context, R.color.picture_color_1766FF);
+            mPictureParameterStyle.pictureRightDefaultTextColor = ContextCompat.getColor(context, R.color.picture_color_hikingbook);
         }
         // 相册父容器背景色
         if (currentTheme == THEME_STYLE_DARK) {
