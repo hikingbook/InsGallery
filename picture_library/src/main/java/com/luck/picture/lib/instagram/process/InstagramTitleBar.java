@@ -34,7 +34,7 @@ public class InstagramTitleBar extends FrameLayout {
     public InstagramTitleBar(@NonNull Context context, PictureSelectionConfig config, InstagramMediaProcessActivity.MediaType mediaType) {
         super(context);
         mLeftView = new ImageView(context);
-        mLeftView.setImageResource(R.drawable.discover_return);
+        mLeftView.setImageResource(R.drawable.ic_arrow_left);
         mLeftView.setPadding(ScreenUtils.dip2px(context, 15), 0, ScreenUtils.dip2px(context, 15), 0);
         mLeftView.setOnClickListener(v -> {
             if (mClickListener != null) {
@@ -60,8 +60,9 @@ public class InstagramTitleBar extends FrameLayout {
                 break;
         }
 
+        mLeftView.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(getContext(), R.color.picture_color_hikingbook), PorterDuff.Mode.MULTIPLY));
+
         if (config.instagramSelectionConfig.getCurrentTheme() == InsGallery.THEME_STYLE_DEFAULT) {
-            mLeftView.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(getContext(), R.color.picture_color_black), PorterDuff.Mode.MULTIPLY));
             mCenterView.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(getContext(), R.color.picture_color_black), PorterDuff.Mode.MULTIPLY));
         }
 
