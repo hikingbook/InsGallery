@@ -42,7 +42,7 @@ public class PageVideo implements Page {
 
     @Override
     public String getTitle(Context context) {
-        return context.getString(R.string.photo);
+        return context.getString(R.string.camera);
     }
 
     @Override

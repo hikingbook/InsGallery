@@ -222,18 +222,20 @@ public class InstagramPreviewContainer extends FrameLayout {
             }
         });
 
-        mMultiView = new ImageView(context);
+        if (PictureSelectionConfig.editableUrl.trim().equals("") || PictureSelectionConfig.editableUrl == null) {
+            mMultiView = new ImageView(context);
 
-        CombinedDrawable multiDrawable = new CombinedDrawable(InstagramUtils.createSimpleSelectorCircleDrawable(ScreenUtils.dip2px(context, 30), 0x88000000, Color.BLACK),
-                context.getResources().getDrawable(R.drawable.discover_many).mutate());
-        multiDrawable.setCustomSize(ScreenUtils.dip2px(context, 30), ScreenUtils.dip2px(context, 30));
+            CombinedDrawable multiDrawable = new CombinedDrawable(InstagramUtils.createSimpleSelectorCircleDrawable(ScreenUtils.dip2px(context, 30), 0x88000000, Color.BLACK),
+                    context.getResources().getDrawable(R.drawable.discover_many).mutate());
+            multiDrawable.setCustomSize(ScreenUtils.dip2px(context, 30), ScreenUtils.dip2px(context, 30));
 
-        mMultiView.setImageDrawable(multiDrawable);
-        FrameLayout.LayoutParams multiLayoutParams = new LayoutParams(ScreenUtils.dip2px(context, 30), ScreenUtils.dip2px(context, 30), Gravity.BOTTOM | Gravity.RIGHT);
-        multiLayoutParams.rightMargin = ScreenUtils.dip2px(context, 15);
-        multiLayoutParams.bottomMargin = ScreenUtils.dip2px(context, 12);
-        addView(mMultiView, multiLayoutParams);
-        mMultiView.setOnClickListener(v -> setMultiMode(!isMulti));
+            mMultiView.setImageDrawable(multiDrawable);
+            FrameLayout.LayoutParams multiLayoutParams = new LayoutParams(ScreenUtils.dip2px(context, 30), ScreenUtils.dip2px(context, 30), Gravity.BOTTOM | Gravity.RIGHT);
+            multiLayoutParams.rightMargin = ScreenUtils.dip2px(context, 15);
+            multiLayoutParams.bottomMargin = ScreenUtils.dip2px(context, 12);
+            addView(mMultiView, multiLayoutParams);
+            mMultiView.setOnClickListener(v -> setMultiMode(!isMulti));
+        }
 
         View divider = new View(getContext());
         if (config.instagramSelectionConfig.getCurrentTheme() == InsGallery.THEME_STYLE_DARK) {

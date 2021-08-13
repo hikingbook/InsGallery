@@ -60,7 +60,7 @@
     <string name="picture_photo_recording">Long Press Camera</string>
     <string name="picture_go_setting">Go Setting</string>
     <string name="gallery">Gallery</string>
-    <string name="photo">Photo</string>
+    <string name="camera">Camera</string>
     <string name="video">Video</string>
     <string name="press_to_record">Press and hold to record.</string>
     <string name="alert_record">Video recording at least %d seconds.</string>

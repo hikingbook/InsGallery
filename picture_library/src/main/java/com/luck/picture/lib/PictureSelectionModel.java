@@ -1336,6 +1336,11 @@ public class PictureSelectionModel {
         return this;
     }
 
+    public PictureSelectionModel setEditableUrl(String url) {
+        PictureSelectionConfig.editableUrl = url;
+        return this;
+    }
+
     /**
      * Start to select media and wait for result.
      *

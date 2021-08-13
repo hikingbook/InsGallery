@@ -118,6 +118,7 @@ public final class PictureSelectionConfig implements Parcelable {
     public static OnCurrentFilterListener currentFilterListener;
     public static OnVideoSelectedPlayCallback customVideoPlayCallback;
     public static OnCustomCameraInterfaceListener onCustomCameraInterfaceListener;
+    public static String editableUrl;
     public List<LocalMedia> selectionMedias;
     public String cameraFileName;
     public boolean isCheckOriginalImage;

@@ -255,11 +255,16 @@ public class PictureSelectorInstagramStyleActivity extends PictureBaseActivity i
 
         mList = new ArrayList<>();
         mList.add(new PageGallery(mInstagramGallery));
+
         PagePhoto pagePhoto = new PagePhoto(this, config);
-        mList.add(pagePhoto);
+        if (PictureSelectionConfig.editableUrl.trim().equals("") || PictureSelectionConfig.editableUrl == null) {
+            mList.add(pagePhoto);
+        }
+
 //        mList.add(new PageVideo(pagePhoto));
         mInstagramViewPager = new InstagramViewPager(getContext(), mList, config);
         ((RelativeLayout) container).addView(mInstagramViewPager, params);
+
 
         pagePhoto.setCameraListener(new CameraListener() {
             @Override
@@ -348,7 +353,14 @@ public class PictureSelectorInstagramStyleActivity extends PictureBaseActivity i
         mPictureRecycler.setHasFixedSize(true);
         mPictureRecycler.addItemDecoration(new SpacingItemDecoration(config.imageSpanCount,
                 ScreenUtils.dip2px(this, 2), false));
-        mPictureRecycler.setLayoutManager(new GridLayoutManager(getContext(), config.imageSpanCount));
+
+        if (PictureSelectionConfig.editableUrl.trim().equals("") || PictureSelectionConfig.editableUrl == null) {
+            mPictureRecycler.setLayoutManager(new GridLayoutManager(getContext(), config.imageSpanCount));
+            mIvArrow.setVisibility(View.VISIBLE);
+        } else {
+            mIvArrow.setVisibility(View.GONE);
+        }
+
         // 解决调用 notifyItemChanged 闪烁问题,取消默认动画
         ((SimpleItemAnimator) mPictureRecycler.getItemAnimator())
                 .setSupportsChangeAnimations(false);
@@ -445,7 +457,7 @@ public class PictureSelectorInstagramStyleActivity extends PictureBaseActivity i
         String title;
         boolean enable;
         if (position == 1) {
-            title = getString(R.string.photo);
+            title = getString(R.string.camera);
             enable = false;
         }
 //        else if (position == 2) {
@@ -1429,8 +1441,15 @@ public class PictureSelectorInstagramStyleActivity extends PictureBaseActivity i
 //                    // 压缩过,或者裁剪同时压缩过,以最终压缩过图片为准
 //                    path = media.getCompressPath();
 //                } else {
-                    path = media.getPath();
+//                    path = media.getPath();
 //                }
+
+                if (PictureSelectionConfig.editableUrl.trim().equals("") || PictureSelectionConfig.editableUrl == null) {
+                    path = media.getPath();
+                } else {
+                    path = PictureSelectionConfig.editableUrl;
+                }
+
                 boolean isHttp = PictureMimeType.isHasHttp(path);
                 boolean isAndroidQ = SdkVersionUtils.checkedAndroid_Q();
                 Uri uri = isHttp || isAndroidQ ? Uri.parse(path) : Uri.fromFile(new File(path));
