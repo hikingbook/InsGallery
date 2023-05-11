@@ -9,7 +9,6 @@
     <string name="picture_message_video_max_num">你最多只能选择%1$s个视频</string>
     <string name="picture_message_audio_max_num">你最多只能选择%1$s个音频</string>
     <string name="picture_preview">预览</string>
-    <string name="picture_please">请稍候…</string>
     <string name="picture_done_front_num">%1$d/%2$d 完成</string>
     <string name="picture_completed">已完成</string>
     <string name="picture_done">完 成</string>
@@ -23,11 +22,9 @@
     <string name="picture_jurisdiction">读取内存卡权限被拒绝</string>
     <string name="picture_camera">获取系统相机权限被拒绝</string>
     <string name="picture_audio">获取系统录音权限被拒绝</string>
-    <string name="picture_video_toast">视频不可预览</string>
     <string name="picture_record_video">录视频</string>
     <string name="picture_photograph">拍照</string>
     <string name="picture_long_chart">长图</string>
-    <string name="picture_warning">暂无媒体文件！</string>
     <string name="picture_prompt">提示</string>
     <string name="picture_prompt_content">是否保存图片至手机？</string>
     <string name="picture_save_error">图片保存失败</string>
@@ -60,7 +57,6 @@
     <string name="picture_go_setting">去设置</string>
     <string name="gallery">图库</string>
     <string name="camera">相机</string>
-    <string name="video">视频</string>
     <string name="press_to_record">按住录制视频。</string>
     <string name="alert_record">视频录制至少需要%d秒。</string>
     <string name="camera_access">启用相机访问权限</string>
