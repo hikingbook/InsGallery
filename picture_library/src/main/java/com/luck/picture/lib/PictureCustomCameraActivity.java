@@ -2,7 +2,6 @@ package com.luck.picture.lib;
 
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -12,7 +11,10 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.common.util.concurrent.ListenableFuture;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.camera.view.CameraView;
+
 import com.luck.picture.lib.camera.CustomCameraView;
 import com.luck.picture.lib.camera.listener.CameraListener;
 import com.luck.picture.lib.camera.view.CaptureLayout;
@@ -24,12 +26,6 @@ import com.luck.picture.lib.permissions.PermissionChecker;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.camera.core.CameraX;
-import androidx.camera.lifecycle.ProcessCameraProvider;
-import androidx.camera.view.CameraView;
 
 /**
  * @author：luck
@@ -60,13 +56,14 @@ public class PictureCustomCameraActivity extends PictureSelectorCameraEmptyActiv
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         super.onCreate(savedInstanceState);
         // 验证存储权限
+        String permission = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ? Manifest.permission.READ_MEDIA_IMAGES : Manifest.permission.READ_EXTERNAL_STORAGE;
         boolean isExternalStorage = PermissionChecker
-                .checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) &&
+                .checkSelfPermission(this, permission) &&
                 PermissionChecker
                         .checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
         if (!isExternalStorage) {
             PermissionChecker.requestPermissions(this, new String[]{
-                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    permission,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE}, PictureConfig.APPLY_STORAGE_PERMISSIONS_CODE);
             return;
         }

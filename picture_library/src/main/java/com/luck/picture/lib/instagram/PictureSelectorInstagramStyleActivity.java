@@ -147,8 +147,9 @@ public class PictureSelectorInstagramStyleActivity extends PictureBaseActivity i
         }
         // 这里只针对权限被手动拒绝后进入设置页面重新获取权限后的操作
         if (isEnterSetting) {
+            String permission = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ? Manifest.permission.READ_MEDIA_IMAGES : Manifest.permission.READ_EXTERNAL_STORAGE;
             if (PermissionChecker
-                    .checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) &&
+                    .checkSelfPermission(this, permission) &&
                     PermissionChecker
                             .checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                 if (mAdapter.isDataEmpty()) {
@@ -496,14 +497,15 @@ public class PictureSelectorInstagramStyleActivity extends PictureBaseActivity i
      * 加载数据
      */
     private void loadAllMediaData() {
+        String permission = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ? Manifest.permission.READ_MEDIA_IMAGES : Manifest.permission.READ_EXTERNAL_STORAGE;
         if (PermissionChecker
-                .checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) &&
+                .checkSelfPermission(this, permission) &&
                 PermissionChecker
                         .checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             readLocalMedia();
         } else {
             PermissionChecker.requestPermissions(this, new String[]{
-                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    permission,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE}, PictureConfig.APPLY_STORAGE_PERMISSIONS_CODE);
         }
     }
@@ -1318,8 +1320,9 @@ public class PictureSelectorInstagramStyleActivity extends PictureBaseActivity i
         // 启动相机拍照,先判断手机是否有拍照权限
         if (PermissionChecker.checkSelfPermission(this, Manifest.permission.CAMERA)) {
             // 获取到相机权限再验证是否有存储权限
+            String permission = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ? Manifest.permission.READ_MEDIA_IMAGES : Manifest.permission.READ_EXTERNAL_STORAGE;
             if (PermissionChecker
-                    .checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) &&
+                    .checkSelfPermission(this, permission) &&
                     PermissionChecker
                             .checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                 initCamera();
@@ -1330,7 +1333,7 @@ public class PictureSelectorInstagramStyleActivity extends PictureBaseActivity i
                 }
             } else {
                 PermissionChecker.requestPermissions(this, new String[]{
-                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        permission,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE}, PictureConfig.APPLY_CAMERA_STORAGE_PERMISSIONS_CODE);
             }
         } else {
