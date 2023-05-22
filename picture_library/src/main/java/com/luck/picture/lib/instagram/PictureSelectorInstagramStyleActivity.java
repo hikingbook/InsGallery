@@ -19,6 +19,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.text.TextUtils;
+import android.view.OrientationEventListener;
+import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -26,6 +28,14 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import com.luck.picture.lib.PictureBaseActivity;
 import com.luck.picture.lib.PictureCustomCameraActivity;
@@ -74,14 +84,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.SimpleItemAnimator;
 
 /**
  * @author：luck
@@ -1824,6 +1826,7 @@ public class PictureSelectorInstagramStyleActivity extends PictureBaseActivity i
                     mimeType = PictureMimeType.getMimeType(file);
                 }
                 if (PictureMimeType.isHasImage(mimeType)) {
+                    BitmapUtils.rotateImage(getRotateDegree(), path);
                     newSize = MediaUtils.getImageSizeForUrlToAndroidQ(this, config.cameraPath);
                 } else {
                     newSize = MediaUtils.getVideoSizeForUri(this, Uri.parse(config.cameraPath));

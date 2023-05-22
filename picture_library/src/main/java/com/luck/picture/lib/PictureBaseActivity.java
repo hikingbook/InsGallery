@@ -13,6 +13,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.view.OrientationEventListener;
+import android.view.Surface;
 import android.view.View;
 import android.widget.TextView;
 
@@ -84,6 +86,10 @@ public abstract class PictureBaseActivity extends AppCompatActivity {
      * is onSaveInstanceState
      */
     protected boolean isOnSaveInstanceState;
+
+    protected int deviceOrientation;
+
+    private OrientationEventListener orientationEventListener;
 
     /**
      * Whether to use immersion, subclasses copy the method to determine whether to use immersion
@@ -182,6 +188,25 @@ public abstract class PictureBaseActivity extends AppCompatActivity {
         initWidgets();
         initPictureSelectorStyle();
         isOnSaveInstanceState = false;
+
+        orientationEventListener = new OrientationEventListener(this) {
+            @Override
+            public void onOrientationChanged(int orientation) {
+                if (orientation >= 330 || orientation < 30) {
+                    deviceOrientation = Surface.ROTATION_0;
+
+                } else if (orientation >= 60 && orientation < 120) {
+                    deviceOrientation = Surface.ROTATION_90;
+
+                } else if (orientation >= 150 && orientation < 210) {
+                    deviceOrientation = Surface.ROTATION_180;
+
+                } else if (orientation >= 240 && orientation < 300) {
+                    deviceOrientation = Surface.ROTATION_270;
+                }
+            }
+        };
+        orientationEventListener.enable();
     }
 
     /**
@@ -876,6 +901,7 @@ public abstract class PictureBaseActivity extends AppCompatActivity {
             mLoadingDialog.dismiss();
             mLoadingDialog = null;
         }
+        orientationEventListener.disable();
         super.onDestroy();
     }
 
@@ -1138,5 +1164,18 @@ public abstract class PictureBaseActivity extends AppCompatActivity {
             int rSize = rhs.getImageNum();
             return Integer.compare(rSize, lSize);
         });
+    }
+
+    protected int getRotateDegree() {
+        switch (deviceOrientation) {
+            case Surface.ROTATION_90:
+                return 90;
+            case Surface.ROTATION_180:
+                return  180;
+            case Surface.ROTATION_270:
+                return 270;
+            default:
+                return 0;
+        }
     }
 }

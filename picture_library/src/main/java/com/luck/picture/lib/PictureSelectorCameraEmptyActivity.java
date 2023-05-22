@@ -263,6 +263,7 @@ public class PictureSelectorCameraEmptyActivity extends PictureBaseActivity {
                             media.setSize(cameraFile.length());
                         }
                         if (PictureMimeType.isHasImage(mimeType)) {
+                            BitmapUtils.rotateImage(getRotateDegree(), path);
                             newSize = MediaUtils.getImageSizeForUrlToAndroidQ(getContext(), config.cameraPath);
                         } else if (PictureMimeType.isHasVideo(mimeType)) {
                             newSize = MediaUtils.getVideoSizeForUri(getContext(), Uri.parse(config.cameraPath));
