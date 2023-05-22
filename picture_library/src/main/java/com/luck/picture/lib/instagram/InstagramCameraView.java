@@ -70,29 +70,6 @@ public class InstagramCameraView extends FrameLayout {
         mCameraView = new CameraView(context);
         addView(mCameraView);
 
-        mSwitchView = new ImageView(context);
-        mSwitchView.setImageResource(R.drawable.discover_flip);
-        mSwitchView.setOnClickListener((v) -> {
-            if (mCaptureLayout.isInLongPress()) {
-                return;
-            }
-            isFront = !isFront;
-            ObjectAnimator.ofFloat(mSwitchView, "rotation", mSwitchView.getRotation() - 180f).setDuration(400).start();
-            mCameraView.toggleCamera();
-        });
-        addView(mSwitchView);
-
-        mFlashView = new ImageView(context);
-        mFlashView.setImageResource(R.drawable.discover_flash_off);
-        mFlashView.setOnClickListener((v) -> {
-            mTypeFlash++;
-            if (mTypeFlash > TYPE_FLASH_OFF) {
-                mTypeFlash = TYPE_FLASH_AUTO;
-            }
-            setFlashRes();
-        });
-        addView(mFlashView);
-
         mCaptureLayout = new InstagramCaptureLayout(context, config);
         addView(mCaptureLayout);
         mCaptureLayout.setCaptureListener(new InstagramCaptureListener() {
@@ -141,6 +118,29 @@ public class InstagramCameraView extends FrameLayout {
                 }
             }
         });
+
+        mSwitchView = new ImageView(context);
+        mSwitchView.setImageResource(R.drawable.discover_flip);
+        mSwitchView.setOnClickListener((v) -> {
+            if (mCaptureLayout.isInLongPress()) {
+                return;
+            }
+            isFront = !isFront;
+            ObjectAnimator.ofFloat(mSwitchView, "rotation", mSwitchView.getRotation() - 180f).setDuration(400).start();
+            mCameraView.toggleCamera();
+        });
+        addView(mSwitchView);
+
+        mFlashView = new ImageView(context);
+        mFlashView.setImageResource(R.drawable.discover_flash_off);
+        mFlashView.setOnClickListener((v) -> {
+            mTypeFlash++;
+            if (mTypeFlash > TYPE_FLASH_OFF) {
+                mTypeFlash = TYPE_FLASH_AUTO;
+            }
+            setFlashRes();
+        });
+        addView(mFlashView);
 
         mCameraEmptyView = new InstagramCameraEmptyView(context, config);
         addView(mCameraEmptyView);
