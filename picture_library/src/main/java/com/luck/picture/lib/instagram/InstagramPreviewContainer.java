@@ -21,6 +21,11 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.VideoView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.luck.picture.lib.R;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.config.PictureSelectionConfig;
@@ -40,11 +45,6 @@ import com.yalantis.ucrop.view.UCropView;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * ================================================
@@ -222,7 +222,7 @@ public class InstagramPreviewContainer extends FrameLayout {
             }
         });
 
-        if (PictureSelectionConfig.editableUrl.trim().equals("") || PictureSelectionConfig.editableUrl == null) {
+        if (PictureSelectionConfig.editableUrl == null || PictureSelectionConfig.editableUrl.trim().equals("")) {
             mMultiView = new ImageView(context);
 
             CombinedDrawable multiDrawable = new CombinedDrawable(InstagramUtils.createSimpleSelectorCircleDrawable(ScreenUtils.dip2px(context, 30), 0x88000000, Color.BLACK),
