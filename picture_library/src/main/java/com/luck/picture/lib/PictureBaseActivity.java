@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,10 +14,14 @@ import android.os.Handler;
 import android.os.Looper;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.OrientationEventListener;
 import android.view.Surface;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.luck.picture.lib.app.PictureAppMaster;
 import com.luck.picture.lib.compress.Luban;
@@ -56,9 +61,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 
 /**
@@ -1166,13 +1168,19 @@ public abstract class PictureBaseActivity extends AppCompatActivity {
         });
     }
 
-    protected int getRotateDegree() {
+    protected int getRotateDegree(int exifOrientation) {
         switch (deviceOrientation) {
             case Surface.ROTATION_90:
+                if (exifOrientation == ExifInterface.ORIENTATION_FLIP_HORIZONTAL) {
+                    return 270;
+                }
                 return 90;
             case Surface.ROTATION_180:
                 return  180;
             case Surface.ROTATION_270:
+                if (exifOrientation == ExifInterface.ORIENTATION_FLIP_HORIZONTAL) {
+                    return 90;
+                }
                 return 270;
             default:
                 return 0;

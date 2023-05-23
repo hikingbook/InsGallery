@@ -19,8 +19,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.text.TextUtils;
-import android.view.OrientationEventListener;
-import android.view.Surface;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -1826,7 +1825,7 @@ public class PictureSelectorInstagramStyleActivity extends PictureBaseActivity i
                     mimeType = PictureMimeType.getMimeType(file);
                 }
                 if (PictureMimeType.isHasImage(mimeType)) {
-                    BitmapUtils.rotateImage(getRotateDegree(), path);
+                    BitmapUtils.rotateImage(getRotateDegree(MediaUtils.getImageOrientationForUrl(getContext(), config.cameraPath)), path);
                     newSize = MediaUtils.getImageSizeForUrlToAndroidQ(this, config.cameraPath);
                 } else {
                     newSize = MediaUtils.getVideoSizeForUri(this, Uri.parse(config.cameraPath));

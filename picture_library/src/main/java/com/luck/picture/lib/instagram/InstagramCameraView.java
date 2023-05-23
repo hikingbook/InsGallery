@@ -6,9 +6,21 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.camera.core.CameraSelector;
+import androidx.camera.core.ImageCapture;
+import androidx.camera.core.ImageCaptureException;
+import androidx.camera.core.VideoCapture;
+import androidx.camera.core.impl.utils.Exif;
+import androidx.camera.view.CameraView;
+import androidx.core.content.ContextCompat;
 
 import com.luck.picture.lib.R;
 import com.luck.picture.lib.camera.listener.CameraListener;
@@ -25,15 +37,6 @@ import com.luck.picture.lib.tools.StringUtils;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.camera.core.ImageCapture;
-import androidx.camera.core.ImageCaptureException;
-import androidx.camera.core.VideoCapture;
-import androidx.camera.view.CameraView;
-import androidx.core.content.ContextCompat;
 
 /**
  * ================================================
@@ -80,7 +83,11 @@ public class InstagramCameraView extends FrameLayout {
                 }
                 mCameraView.setCaptureMode(androidx.camera.view.CameraView.CaptureMode.IMAGE);
                 File imageOutFile = createImageFile();
-                ImageCapture.OutputFileOptions options = new ImageCapture.OutputFileOptions.Builder(imageOutFile).build();
+                ImageCapture.OutputFileOptions.Builder builder = new ImageCapture.OutputFileOptions.Builder(imageOutFile);
+                ImageCapture.Metadata metadata = new ImageCapture.Metadata();
+                metadata.setReversedHorizontal(mCameraView.getCameraLensFacing() == CameraSelector.LENS_FACING_FRONT);
+                builder.setMetadata(metadata);
+                ImageCapture.OutputFileOptions options = builder.build();
                 mCameraView.takePicture(options, ContextCompat.getMainExecutor(getContext().getApplicationContext()), new OnImageSavedCallbackImpl(InstagramCameraView.this, imageOutFile));
             }
 
