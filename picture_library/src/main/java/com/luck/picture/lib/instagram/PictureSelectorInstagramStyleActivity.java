@@ -259,7 +259,7 @@ public class PictureSelectorInstagramStyleActivity extends PictureBaseActivity i
         mList.add(new PageGallery(mInstagramGallery));
 
         PagePhoto pagePhoto = new PagePhoto(this, config);
-        if (PictureSelectionConfig.editableUrl.trim().equals("") || PictureSelectionConfig.editableUrl == null) {
+        if (PictureSelectionConfig.editableUrl == null || PictureSelectionConfig.editableUrl.trim().equals("")) {
             mList.add(pagePhoto);
         }
 
