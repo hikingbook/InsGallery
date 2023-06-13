@@ -1962,14 +1962,16 @@ public class PictureSelectorInstagramStyleActivity extends PictureBaseActivity i
                     }
                 }
             }
-            LocalMediaFolder localMediaFolder = foldersList.get(mFolderPosition);
-            if (localMediaFolder.isCameraFolder() || "Camera".equals(localMediaFolder.getName())) {
-                mAdapter.notifyItemInserted(config.isCamera ? 1 : 0);
-                mAdapter.notifyItemRangeChanged(config.isCamera ? 1 : 0, images.size());
-                if (images.size() == 1 || (config.selectionMode != PictureConfig.SINGLE && isPreview)) {
-                    startPreview(images, 0);
-                } else {
-                    setPreviewPosition(mPreviewPosition + 1);
+            if (foldersList.size() > mFolderPosition    ) {
+                LocalMediaFolder localMediaFolder = foldersList.get(mFolderPosition);
+                if (localMediaFolder.isCameraFolder() || "Camera".equals(localMediaFolder.getName())) {
+                    mAdapter.notifyItemInserted(config.isCamera ? 1 : 0);
+                    mAdapter.notifyItemRangeChanged(config.isCamera ? 1 : 0, images.size());
+                    if (images.size() == 1 || (config.selectionMode != PictureConfig.SINGLE && isPreview)) {
+                        startPreview(images, 0);
+                    } else {
+                        setPreviewPosition(mPreviewPosition + 1);
+                    }
                 }
             }
             // 解决部分手机拍照完Intent.ACTION_MEDIA_SCANNER_SCAN_FILE，不及时刷新问题手动添加
