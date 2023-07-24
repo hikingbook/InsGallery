@@ -306,8 +306,10 @@ public class InstagramPreviewContainer extends FrameLayout {
             }
         }
 
-        mGestureCropImageView.setTargetAspectRatio(isAspectRatio ? mAspectRadio : 1.0f);
-        mGestureCropImageView.onImageLaidOut();
+        if (mGestureCropImageView != null) {
+            mGestureCropImageView.setTargetAspectRatio(isAspectRatio ? mAspectRadio : 1.0f);
+            mGestureCropImageView.onImageLaidOut();
+        }
     }
 
     public static float getInstagramAspectRatio(int width, int height) {
