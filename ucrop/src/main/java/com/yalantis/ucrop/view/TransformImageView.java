@@ -9,16 +9,16 @@ import android.net.Uri;
 import android.util.AttributeSet;
 import android.util.Log;
 
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
+
 import com.yalantis.ucrop.callback.BitmapLoadCallback;
 import com.yalantis.ucrop.model.ExifInfo;
 import com.yalantis.ucrop.util.BitmapLoadUtils;
 import com.yalantis.ucrop.util.FastBitmapDrawable;
 import com.yalantis.ucrop.util.RectUtils;
-
-import androidx.annotation.IntRange;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatImageView;
 
 /**
  * Created by Oleksii Shliama (https://github.com/shliama).
@@ -339,8 +339,12 @@ public class TransformImageView extends AppCompatImageView {
      * Those are used for several calculations.
      */
     private void updateCurrentImagePoints() {
-        mCurrentImageMatrix.mapPoints(mCurrentImageCorners, mInitialImageCorners);
-        mCurrentImageMatrix.mapPoints(mCurrentImageCenter, mInitialImageCenter);
+        if (mInitialImageCorners != null) {
+            mCurrentImageMatrix.mapPoints(mCurrentImageCorners, mInitialImageCorners);
+        }
+        if (mInitialImageCenter != null) {
+            mCurrentImageMatrix.mapPoints(mCurrentImageCenter, mInitialImageCenter);
+        }
     }
 
 }
