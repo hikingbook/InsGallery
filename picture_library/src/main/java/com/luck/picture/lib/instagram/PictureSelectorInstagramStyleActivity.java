@@ -356,7 +356,7 @@ public class PictureSelectorInstagramStyleActivity extends PictureBaseActivity i
         mPictureRecycler.addItemDecoration(new SpacingItemDecoration(config.imageSpanCount,
                 ScreenUtils.dip2px(this, 2), false));
 
-        if (PictureSelectionConfig.editableUrl.trim().equals("") || PictureSelectionConfig.editableUrl == null) {
+        if (PictureSelectionConfig.editableUrl == null || PictureSelectionConfig.editableUrl.trim().equals("")) {
             mPictureRecycler.setLayoutManager(new GridLayoutManager(getContext(), config.imageSpanCount));
             mIvArrow.setVisibility(View.VISIBLE);
         } else {
