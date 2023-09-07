@@ -1448,7 +1448,7 @@ public class PictureSelectorInstagramStyleActivity extends PictureBaseActivity i
 //                    path = media.getPath();
 //                }
 
-                if (PictureSelectionConfig.editableUrl.trim().equals("") || PictureSelectionConfig.editableUrl == null) {
+                if (PictureSelectionConfig.editableUrl == null || PictureSelectionConfig.editableUrl.trim().equals("")) {
                     path = media.getPath();
                 } else {
                     path = PictureSelectionConfig.editableUrl;
