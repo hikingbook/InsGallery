@@ -66,7 +66,7 @@ public class InstagramPreviewContainer extends FrameLayout {
     private ImageView mMultiView;
     private boolean mCropGridShowing;
     private Handler mHandler;
-    private boolean isAspectRatio;
+    private boolean isAspectRatio = true;
     private boolean isMulti;
     private onSelectionModeChangedListener mListener;
     private int mPlayMode;
