@@ -313,13 +313,7 @@ public class InstagramPreviewContainer extends FrameLayout {
     }
 
     public static float getInstagramAspectRatio(int width, int height) {
-        float aspectRatio = 0;
-        if (height > width * 1.266f) {
-            aspectRatio = width / (width * 1.266f);
-        } else if (width > height * 1.9f) {
-            aspectRatio = height * 1.9f / height;
-        }
-        return aspectRatio;
+        return ((float) width) / ((float)height);
     }
 
     public boolean isAspectRatio() {
