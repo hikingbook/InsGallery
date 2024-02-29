@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import androidx.annotation.Nullable;
+
 import com.luck.picture.lib.PictureBaseActivity;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.R;
@@ -24,8 +26,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.annotation.Nullable;
 
 /**
  * ================================================
@@ -45,7 +45,7 @@ public class InstagramMediaProcessActivity extends PictureBaseActivity {
     private List<LocalMedia> mSelectMedia;
     private InstagramTitleBar mTitleBar;
     private MediaType mMediaType;
-    private boolean isAspectRatio;
+    private boolean isAspectRatio = true;
 
     public enum MediaType {
         SINGLE_IMAGE, SINGLE_VIDEO, MULTI_IMAGE
@@ -200,7 +200,7 @@ public class InstagramMediaProcessActivity extends PictureBaseActivity {
 
     private void createMultiImageContainer(FrameLayout contentView, List<LocalMedia> selectMedia) {
         if (getIntent() != null) {
-            isAspectRatio = getIntent().getBooleanExtra(EXTRA_ASPECT_RATIO, false);
+            isAspectRatio = getIntent().getBooleanExtra(EXTRA_ASPECT_RATIO, true);
         }
         InstagramMediaMultiImageContainer multiImageContainer = new InstagramMediaMultiImageContainer(this, config, selectMedia, isAspectRatio);
         contentView.addView(multiImageContainer, FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
@@ -208,7 +208,7 @@ public class InstagramMediaProcessActivity extends PictureBaseActivity {
 
     private void createSingleVideoContainer(FrameLayout contentView, List<LocalMedia> selectMedia) {
         if (getIntent() != null) {
-            isAspectRatio = getIntent().getBooleanExtra(EXTRA_ASPECT_RATIO, false);
+            isAspectRatio = getIntent().getBooleanExtra(EXTRA_ASPECT_RATIO, true);
         }
         InstagramMediaSingleVideoContainer singleVideoContainer = new InstagramMediaSingleVideoContainer(this, config, selectMedia.get(0), isAspectRatio);
         contentView.addView(singleVideoContainer, FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
@@ -217,7 +217,7 @@ public class InstagramMediaProcessActivity extends PictureBaseActivity {
     private void createSingleImageContainer(FrameLayout contentView) {
         int selectionFilter = -1;
         if (getIntent() != null) {
-            isAspectRatio = getIntent().getBooleanExtra(EXTRA_ASPECT_RATIO, false);
+            isAspectRatio = getIntent().getBooleanExtra(EXTRA_ASPECT_RATIO, true);
             selectionFilter = getIntent().getIntExtra(EXTRA_SINGLE_IMAGE_FILTER, -1);
         }
 

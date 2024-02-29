@@ -46,14 +46,15 @@ public class BitmapCropSquareTask extends AsyncTask<Void, Void, Throwable> {
 
         OutputStream outputStream = null;
         try {
-            int cropWidth = Math.min(mBitmap.getWidth(), mBitmap.getHeight());
-            int cropOffsetX = (mBitmap.getWidth() - cropWidth) / 2;
-            int cropOffsetY = (mBitmap.getHeight() - cropWidth) / 2;
-            Bitmap croppedBitmap = Bitmap.createBitmap(mBitmap, cropOffsetX, cropOffsetY, cropWidth, cropWidth);
+//  Do not crop to a square bitmap by Zheng-Xiang Ke
+//            int cropWidth = Math.min(mBitmap.getWidth(), mBitmap.getHeight());
+//            int cropOffsetX = (mBitmap.getWidth() - cropWidth) / 2;
+//            int cropOffsetY = (mBitmap.getHeight() - cropWidth) / 2;
+//            Bitmap croppedBitmap = Bitmap.createBitmap(mBitmap, cropOffsetX, cropOffsetY, cropWidth, cropWidth);
 
             outputStream = activity.getApplicationContext().getContentResolver().openOutputStream(Uri.fromFile(new File(mImageOutputPath)));
-            croppedBitmap.compress(Bitmap.CompressFormat.JPEG, 90, outputStream);
-            croppedBitmap.recycle();
+            mBitmap.compress(Bitmap.CompressFormat.JPEG, 90, outputStream);
+            mBitmap.recycle();
         } catch (Throwable t) {
             t.printStackTrace();
             return t;
