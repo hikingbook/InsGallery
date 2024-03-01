@@ -163,6 +163,8 @@ public class InstagramPreviewContainer extends FrameLayout {
         mGestureCropImageView.setRotateEnabled(false);
         mGestureCropImageView.setTransformImageListener(mImageListener);
         mGestureCropImageView.setMaxScaleMultiplier(15.0f);
+        mGestureCropImageView.setMaxResultImageSizeX(4320);
+        mGestureCropImageView.setMaxResultImageSizeY(4320);
 
         mOverlayView.setPadding(0, 0, 0, 0);
         mOverlayView.setShowCropGrid(false);
