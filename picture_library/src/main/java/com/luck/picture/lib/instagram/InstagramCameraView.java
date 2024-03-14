@@ -20,6 +20,8 @@ import androidx.camera.core.ImageCaptureException;
 import androidx.camera.core.VideoCapture;
 import androidx.camera.core.impl.utils.Exif;
 import androidx.camera.view.CameraView;
+import androidx.camera.view.video.OnVideoSavedCallback;
+import androidx.camera.view.video.OutputFileResults;
 import androidx.core.content.ContextCompat;
 
 import com.luck.picture.lib.R;
@@ -420,7 +422,7 @@ public class InstagramCameraView extends FrameLayout {
         }
     }
 
-    private static class OnVideoSavedCallbackImpl implements VideoCapture.OnVideoSavedCallback {
+    private static class OnVideoSavedCallbackImpl implements OnVideoSavedCallback {
         private WeakReference<InstagramCameraView> mCameraView;
 
         OnVideoSavedCallbackImpl(InstagramCameraView cameraView) {
@@ -428,7 +430,9 @@ public class InstagramCameraView extends FrameLayout {
         }
 
         @Override
-        public void onVideoSaved(@NonNull File file) {
+        public void onVideoSaved(@NonNull OutputFileResults outputFileResults) {
+            File file = new File(outputFileResults.getSavedUri().getPath());
+
             InstagramCameraView cameraView = mCameraView.get();
             if (cameraView == null) {
                 return;

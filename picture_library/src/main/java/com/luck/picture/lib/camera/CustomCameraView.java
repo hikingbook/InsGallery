@@ -14,6 +14,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.camera.core.ImageCapture;
+import androidx.camera.core.ImageCaptureException;
+import androidx.camera.view.CameraView;
+import androidx.camera.view.video.OnVideoSavedCallback;
+import androidx.camera.view.video.OutputFileResults;
+import androidx.core.content.ContextCompat;
+import androidx.lifecycle.LifecycleEventObserver;
+import androidx.lifecycle.LifecycleOwner;
+
 import com.luck.picture.lib.PictureMediaScannerConnection;
 import com.luck.picture.lib.R;
 import com.luck.picture.lib.camera.listener.CameraListener;
@@ -35,17 +46,6 @@ import com.luck.picture.lib.tools.StringUtils;
 import java.io.File;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.camera.core.ImageCapture;
-import androidx.camera.core.ImageCapture.OutputFileOptions;
-import androidx.camera.core.ImageCaptureException;
-import androidx.camera.core.VideoCapture;
-import androidx.camera.view.CameraView;
-import androidx.core.content.ContextCompat;
-import androidx.lifecycle.LifecycleEventObserver;
-import androidx.lifecycle.LifecycleOwner;
 
 /**
  * @author：luck
@@ -149,10 +149,14 @@ public class CustomCameraView extends RelativeLayout {
                 mFlashLamp.setVisibility(INVISIBLE);
                 mCameraView.setCaptureMode(androidx.camera.view.CameraView.CaptureMode.VIDEO);
                 mCameraView.startRecording(createVideoFile(), ContextCompat.getMainExecutor(getContext()),
-                        new VideoCapture.OnVideoSavedCallback() {
+                        new OnVideoSavedCallback() {
                             @Override
-                            public void onVideoSaved(@NonNull File file) {
-                                mVideoFile = file;
+                            public void onVideoSaved(@NonNull OutputFileResults outputFileResults) {
+                                String savedPath = outputFileResults.getSavedUri().getPath();
+                                if (savedPath == null) {
+                                    return;
+                                }
+                                mVideoFile = new File(savedPath);
                                 if (recordTime < 1500 && mVideoFile.exists() && mVideoFile.delete()) {
                                     return;
                                 }
@@ -162,7 +166,7 @@ public class CustomCameraView extends RelativeLayout {
                                         @Override
                                         public Boolean doInBackground() {
                                             return AndroidQTransformUtils.copyPathToDCIM(getContext(),
-                                                    file, Uri.parse(mConfig.cameraPath));
+                                                    mVideoFile, Uri.parse(mConfig.cameraPath));
                                         }
 
                                         @Override
