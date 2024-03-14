@@ -28,17 +28,17 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "androidx.appcompat:appcompat:1.2.0"
-    implementation "androidx.recyclerview:recyclerview:1.2.0"
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.recyclerview:recyclerview:1.3.2'
     implementation "androidx.concurrent:concurrent-futures:1.1.0"
-    implementation "com.squareup.okio:okio:2.10.0"
+    implementation 'com.squareup.okio:okio:3.9.0'
     implementation "androidx.camera:camera-lifecycle:1.0.0-beta07"
-    implementation "androidx.localbroadcastmanager:localbroadcastmanager:1.0.0"
+    implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.1.0'
     implementation "androidx.camera:camera-view:1.0.0-alpha14"
     api project(':ucrop')
-    api 'com.otaliastudios:transcoder:0.9.1'
+    api 'com.otaliastudios:transcoder:0.10.5'
 //    api 'com.googlecode.mp4parser:isoparser:1.1.22'
-    api 'jp.co.cyberagent.android:gpuimage:2.0.4'
+    api 'jp.co.cyberagent.android:gpuimage:2.1.0'
 }
 
 //apply from: 'bintray.gradle'
