@@ -376,7 +376,7 @@ public class InstagramPreviewContainer extends FrameLayout {
     public void checkModel(int mode) {
         mPlayMode = mode;
 
-        if (mVideoView.getVisibility() == VISIBLE && mVideoView.isPlaying()) {
+        if (mVideoView != null && mVideoView.getVisibility() == VISIBLE && mVideoView.isPlaying()) {
             mVideoView.pause();
             isPause = true;
         }
