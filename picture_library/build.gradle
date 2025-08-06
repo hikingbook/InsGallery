@@ -39,7 +39,7 @@ dependencies {
     api project(':ucrop')
     api 'com.otaliastudios:transcoder:0.10.5'
 //    api 'com.googlecode.mp4parser:isoparser:1.1.22'
-    api 'jp.co.cyberagent.android:gpuimage:2.1.0'
+    api files('libs/android-gpuimage-2.2.0.aar') // Repo: https://github.com/linversion/android-gpuimage
 }
 
 //apply from: 'bintray.gradle'

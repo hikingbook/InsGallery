@@ -2,7 +2,6 @@
 .DS_Store
 
 # Built application files
-*.aar
 *.ap_
 *.aab
 
