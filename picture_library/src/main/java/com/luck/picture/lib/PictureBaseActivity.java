@@ -15,13 +15,21 @@ import android.os.Looper;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.OrientationEventListener;
 import android.view.Surface;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.luck.picture.lib.app.PictureAppMaster;
 import com.luck.picture.lib.compress.Luban;
@@ -190,6 +198,8 @@ public abstract class PictureBaseActivity extends AppCompatActivity {
         initWidgets();
         initPictureSelectorStyle();
         isOnSaveInstanceState = false;
+
+        consumeEdgeToEdgeWindowInsets();
 
         orientationEventListener = new OrientationEventListener(this) {
             @Override
@@ -1184,6 +1194,42 @@ public abstract class PictureBaseActivity extends AppCompatActivity {
                 return 270;
             default:
                 return 0;
+        }
+    }
+
+    private void consumeEdgeToEdgeWindowInsets() {
+        // The edge-to-edge is automatically enabled for Android 15 devices or later, so we need to consume the window insets to avoid wrong layout. Details: https://developer.android.com/develop/ui/views/layout/edge-to-edge
+        if (Build.VERSION.SDK_INT >= 35 && container != null) {
+            ViewCompat.setOnApplyWindowInsetsListener(container, (view, windowInsets) -> {
+                Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+
+                ViewGroup.LayoutParams params = view.getLayoutParams();
+                if (params instanceof ViewGroup.MarginLayoutParams marginParams) {
+                    marginParams.leftMargin = insets.left;
+                    marginParams.topMargin = insets.top;
+                    marginParams.bottomMargin = insets.bottom;
+                    marginParams.rightMargin = insets.right;
+                    view.setLayoutParams(marginParams);
+                }
+
+                // Create a fake status bar view
+                int statusBarHeight = insets.top;
+                View statusBarView = new View(getContext());
+                ViewGroup.LayoutParams statusBarLayoutParams = new ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT, statusBarHeight);
+                statusBarView.setBackgroundColor(colorPrimaryDark);
+                addContentView(statusBarView, statusBarLayoutParams);
+
+                // Create a fake navigation bar view
+                int navigationBarHeight = insets.bottom;
+                View navigationBarView = new View(getContext());
+                FrameLayout.LayoutParams navigationBarLayoutParams = new FrameLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT, navigationBarHeight);
+                navigationBarLayoutParams.gravity = android.view.Gravity.BOTTOM;
+                navigationBarView.setBackgroundColor(colorPrimaryDark);
+                addContentView(navigationBarView, navigationBarLayoutParams);
+                return WindowInsetsCompat.CONSUMED;
+            });
         }
     }
 }
