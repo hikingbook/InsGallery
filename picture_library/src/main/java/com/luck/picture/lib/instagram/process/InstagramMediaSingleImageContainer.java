@@ -17,6 +17,10 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.luck.picture.lib.R;
 import com.luck.picture.lib.config.PictureSelectionConfig;
 import com.luck.picture.lib.dialog.PictureCustomDialog;
@@ -35,9 +39,6 @@ import java.io.FileNotFoundException;
 import java.io.OutputStream;
 import java.lang.ref.WeakReference;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import jp.co.cyberagent.android.gpuimage.GPUImage;
 import jp.co.cyberagent.android.gpuimage.GPUImageView;
 
@@ -60,6 +61,8 @@ public class InstagramMediaSingleImageContainer extends FrameLayout implements I
     private int mSelectionFilter;
     private PictureCustomDialog mDialog;
     private GPUImage mGpuImage;
+    private View mFilterHeaderView;
+    private int spacing = 200;
 
     public InstagramMediaSingleImageContainer(@NonNull Context context, PictureSelectionConfig config, Bitmap bitmap, boolean isAspectRatio, int selectionFilter) {
         super(context);
@@ -89,6 +92,9 @@ public class InstagramMediaSingleImageContainer extends FrameLayout implements I
         mImageView.setScaleType(GPUImage.ScaleType.CENTER_INSIDE);
         mImageView.setImage(bitmap);
 
+        mFilterHeaderView = mConfig.filterHeaderView;
+        addView(mFilterHeaderView);
+
         mRecyclerView = new RecyclerView(context);
         mRecyclerView.setOverScrollMode(OVER_SCROLL_NEVER);
         mRecyclerView.setHasFixedSize(true);
@@ -113,9 +119,11 @@ public class InstagramMediaSingleImageContainer extends FrameLayout implements I
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int width = MeasureSpec.getSize(widthMeasureSpec);
         int height = MeasureSpec.getSize(heightMeasureSpec);
+        int headerHeight = 50;
 
         mImageView.measure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY));
-        mRecyclerView.measure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(height - width, MeasureSpec.EXACTLY));
+        mFilterHeaderView.measure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(headerHeight, MeasureSpec.EXACTLY));
+        mRecyclerView.measure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(height - width - spacing - headerHeight, MeasureSpec.EXACTLY));
         measureChild(mLoadingView, widthMeasureSpec, heightMeasureSpec);
         setMeasuredDimension(width, height);
     }
@@ -129,8 +137,11 @@ public class InstagramMediaSingleImageContainer extends FrameLayout implements I
         int viewLeft = (width - mImageView.getMeasuredWidth()) / 2;
         mImageView.layout(viewLeft, viewTop, viewLeft + mImageView.getMeasuredWidth(), viewTop + mImageView.getMeasuredHeight());
 
-        viewTop = width;
+        viewTop = width + spacing;
         viewLeft = 0;
+        mFilterHeaderView.layout(viewLeft, viewTop, viewLeft + mFilterHeaderView.getMeasuredWidth(), viewTop + mFilterHeaderView.getMeasuredHeight());
+
+        viewTop += mFilterHeaderView.getMeasuredHeight();
         mRecyclerView.layout(viewLeft, viewTop, viewLeft + mRecyclerView.getMeasuredWidth(), viewTop + mRecyclerView.getMeasuredHeight());
 
         viewTop += ((height - width) - mLoadingView.getMeasuredHeight()) / 2;

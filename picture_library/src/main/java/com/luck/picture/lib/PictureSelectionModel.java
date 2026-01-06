@@ -6,9 +6,18 @@
  */
 package com.luck.picture.lib;
 
+import static android.os.Build.VERSION_CODES.KITKAT;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
+import android.view.View;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.FloatRange;
+import androidx.annotation.IntRange;
+import androidx.annotation.StyleRes;
+import androidx.fragment.app.Fragment;
 
 import com.luck.picture.lib.animators.AnimationType;
 import com.luck.picture.lib.config.PictureConfig;
@@ -32,14 +41,6 @@ import com.luck.picture.lib.tools.SdkVersionUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
-
-import androidx.annotation.ColorInt;
-import androidx.annotation.FloatRange;
-import androidx.annotation.IntRange;
-import androidx.annotation.StyleRes;
-import androidx.fragment.app.Fragment;
-
-import static android.os.Build.VERSION_CODES.KITKAT;
 
 /**
  * @author：luck
@@ -1333,6 +1334,11 @@ public class PictureSelectionModel {
 
     public PictureSelectionModel currentFilterResult(OnCurrentFilterListener listener) {
         PictureSelectionConfig.currentFilterListener = new WeakReference<>(listener).get();
+        return this;
+    }
+
+    public PictureSelectionModel setFilterHeaderView(View view) {
+        PictureSelectionConfig.filterHeaderView = view;
         return this;
     }
 

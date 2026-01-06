@@ -9,6 +9,10 @@ package com.luck.picture.lib.config;
 import android.content.pm.ActivityInfo;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.view.View;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.StyleRes;
 
 import com.luck.picture.lib.R;
 import com.luck.picture.lib.camera.CustomCameraView;
@@ -27,9 +31,6 @@ import com.luck.picture.lib.style.PictureWindowAnimationStyle;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.annotation.ColorInt;
-import androidx.annotation.StyleRes;
 
 /**
  * @author：luck
@@ -119,6 +120,7 @@ public final class PictureSelectionConfig implements Parcelable {
     public static OnVideoSelectedPlayCallback customVideoPlayCallback;
     public static OnCustomCameraInterfaceListener onCustomCameraInterfaceListener;
     public static String editableUrl;
+    public static View filterHeaderView;
     public List<LocalMedia> selectionMedias;
     public String cameraFileName;
     public boolean isCheckOriginalImage;
