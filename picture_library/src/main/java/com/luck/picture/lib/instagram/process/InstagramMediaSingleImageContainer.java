@@ -119,7 +119,7 @@ public class InstagramMediaSingleImageContainer extends FrameLayout implements I
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int width = MeasureSpec.getSize(widthMeasureSpec);
         int height = MeasureSpec.getSize(heightMeasureSpec);
-        int headerHeight = 50;
+        int headerHeight = 80;
 
         mImageView.measure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY));
         mFilterHeaderView.measure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(headerHeight, MeasureSpec.EXACTLY));
