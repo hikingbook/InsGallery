@@ -9,12 +9,12 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import com.luck.picture.lib.config.PictureSelectionConfig;
 import com.luck.picture.lib.instagram.InsGallery;
 import com.luck.picture.lib.instagram.filter.FilterType;
 import com.luck.picture.lib.tools.ScreenUtils;
-
-import androidx.annotation.NonNull;
 
 /**
  * ================================================
@@ -71,9 +71,9 @@ public class FilterItemView extends FrameLayout {
             } else {
                 mTitleView.setTextColor(Color.parseColor("#fafafa"));
             }
-            setTranslationY(-ScreenUtils.dip2px(getContext(), 10));
+//            setTranslationY(-ScreenUtils.dip2px(getContext(), 10));
         } else {
-            setTranslationY(0);
+//            setTranslationY(0);
             mTitleView.setTextColor(Color.parseColor("#999999"));
         }
     }
