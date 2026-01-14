@@ -227,16 +227,13 @@ public class InstagramPreviewContainer extends FrameLayout {
         if (PictureSelectionConfig.editableUrl == null || PictureSelectionConfig.editableUrl.trim().equals("")) {
             mMultiView = new ImageView(context);
 
-            CombinedDrawable multiDrawable = new CombinedDrawable(InstagramUtils.createSimpleSelectorCircleDrawable(ScreenUtils.dip2px(context, 30), 0x88000000, Color.BLACK),
-                    context.getResources().getDrawable(R.drawable.discover_many).mutate());
-            multiDrawable.setCustomSize(ScreenUtils.dip2px(context, 30), ScreenUtils.dip2px(context, 30));
+            updateMultiView(context);
 
-            mMultiView.setImageDrawable(multiDrawable);
             FrameLayout.LayoutParams multiLayoutParams = new LayoutParams(ScreenUtils.dip2px(context, 30), ScreenUtils.dip2px(context, 30), Gravity.BOTTOM | Gravity.RIGHT);
             multiLayoutParams.rightMargin = ScreenUtils.dip2px(context, 15);
             multiLayoutParams.bottomMargin = ScreenUtils.dip2px(context, 12);
             addView(mMultiView, multiLayoutParams);
-            mMultiView.setOnClickListener(v -> setMultiMode(!isMulti));
+            mMultiView.setOnClickListener(v -> setMultiMode(context, !isMulti));
         }
 
         View divider = new View(getContext());
@@ -251,8 +248,9 @@ public class InstagramPreviewContainer extends FrameLayout {
         addView(divider, dividerParms);
     }
 
-    public void setMultiMode(boolean multi) {
+    public void setMultiMode(Context context, boolean multi) {
         isMulti = multi;
+        updateMultiView(context);
         if (multi) {
             mRatioView.setVisibility(View.GONE);
         } else {
@@ -265,6 +263,18 @@ public class InstagramPreviewContainer extends FrameLayout {
 
     public boolean isMulti() {
         return isMulti;
+    }
+
+    private void updateMultiView(Context context) {
+        int color = 0x88000000;
+        if (isMulti) {
+            color = 0xff639bf5;
+        }
+        CombinedDrawable multiDrawable = new CombinedDrawable(InstagramUtils.createSimpleSelectorCircleDrawable(ScreenUtils.dip2px(context, 30), color, Color.BLACK),
+                context.getResources().getDrawable(R.drawable.discover_many).mutate());
+        multiDrawable.setCustomSize(ScreenUtils.dip2px(context, 30), ScreenUtils.dip2px(context, 30));
+
+        mMultiView.setImageDrawable(multiDrawable);
     }
 
     private void pauseVideo() {

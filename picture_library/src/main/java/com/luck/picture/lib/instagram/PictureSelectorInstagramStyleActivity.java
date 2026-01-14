@@ -1641,7 +1641,7 @@ public class PictureSelectorInstagramStyleActivity extends PictureBaseActivity i
                 mLruCache.clear();
             }
             if (mPreviewContainer != null && mPreviewContainer.isMulti()) {
-                mPreviewContainer.setMultiMode(false);
+                mPreviewContainer.setMultiMode(this, false);
             }
             isCroppingImage = false;
         }
