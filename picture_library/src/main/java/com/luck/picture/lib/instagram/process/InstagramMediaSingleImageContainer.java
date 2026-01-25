@@ -92,8 +92,10 @@ public class InstagramMediaSingleImageContainer extends FrameLayout implements I
         mImageView.setScaleType(GPUImage.ScaleType.CENTER_INSIDE);
         mImageView.setImage(bitmap);
 
-        mFilterHeaderView = mConfig.filterHeaderView;
-        addView(mFilterHeaderView);
+        if (mFilterHeaderView == null) {
+            mFilterHeaderView = mConfig.filterHeaderView;
+            addView(mFilterHeaderView);
+        }
 
         mRecyclerView = new RecyclerView(context);
         mRecyclerView.setOverScrollMode(OVER_SCROLL_NEVER);
