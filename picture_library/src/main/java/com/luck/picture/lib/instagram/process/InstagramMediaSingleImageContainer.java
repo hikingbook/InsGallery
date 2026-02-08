@@ -94,6 +94,12 @@ public class InstagramMediaSingleImageContainer extends FrameLayout implements I
 
         if (mFilterHeaderView == null) {
             mFilterHeaderView = mConfig.filterHeaderView;
+        }
+        if (mFilterHeaderView != null) {
+            if (mFilterHeaderView.getParent() != null) {
+                // Remove it from the old parent to avoid the IllegalStateException
+                ((android.view.ViewGroup) mFilterHeaderView.getParent()).removeView(mFilterHeaderView);
+            }
             addView(mFilterHeaderView);
         }
 
