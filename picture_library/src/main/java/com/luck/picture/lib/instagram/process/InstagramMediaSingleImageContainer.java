@@ -127,10 +127,12 @@ public class InstagramMediaSingleImageContainer extends FrameLayout implements I
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int width = MeasureSpec.getSize(widthMeasureSpec);
         int height = MeasureSpec.getSize(heightMeasureSpec);
-        int headerHeight = 80;
+        int headerHeight = mFilterHeaderView != null ? 80 : 0;
 
         mImageView.measure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY));
-        mFilterHeaderView.measure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(headerHeight, MeasureSpec.EXACTLY));
+        if (mFilterHeaderView != null) {
+            mFilterHeaderView.measure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(headerHeight, MeasureSpec.EXACTLY));
+        }
         mRecyclerView.measure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(height - width - spacing - headerHeight, MeasureSpec.EXACTLY));
         measureChild(mLoadingView, widthMeasureSpec, heightMeasureSpec);
         setMeasuredDimension(width, height);
@@ -147,9 +149,10 @@ public class InstagramMediaSingleImageContainer extends FrameLayout implements I
 
         viewTop = width + spacing;
         viewLeft = 0;
-        mFilterHeaderView.layout(viewLeft, viewTop, viewLeft + mFilterHeaderView.getMeasuredWidth(), viewTop + mFilterHeaderView.getMeasuredHeight());
-
-        viewTop += mFilterHeaderView.getMeasuredHeight();
+        if (mFilterHeaderView != null) {
+            mFilterHeaderView.layout(viewLeft, viewTop, viewLeft + mFilterHeaderView.getMeasuredWidth(), viewTop + mFilterHeaderView.getMeasuredHeight());
+            viewTop += mFilterHeaderView.getMeasuredHeight();
+        }
         mRecyclerView.layout(viewLeft, viewTop, viewLeft + mRecyclerView.getMeasuredWidth(), viewTop + mRecyclerView.getMeasuredHeight());
 
         viewTop += ((height - width) - mLoadingView.getMeasuredHeight()) / 2;
