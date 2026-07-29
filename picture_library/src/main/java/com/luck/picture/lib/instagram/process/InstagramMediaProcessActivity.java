@@ -21,6 +21,7 @@ import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.config.PictureSelectionConfig;
 import com.luck.picture.lib.entity.LocalMedia;
+import com.yalantis.ucrop.util.BitmapLoadUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -230,7 +231,11 @@ public class InstagramMediaProcessActivity extends PictureBaseActivity {
                 uri = PictureMimeType.isContent(media.getPath()) ? Uri.parse(media.getPath()) : Uri.fromFile(new File(media.getPath()));
             }
 
-            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+            Bitmap decodedBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+            Bitmap bitmap = BitmapLoadUtils.applyExifOrientation(this, uri, decodedBitmap);
+            if (bitmap != decodedBitmap) {
+                decodedBitmap.recycle();
+            }
             InstagramMediaSingleImageContainer singleImageContainer = new InstagramMediaSingleImageContainer(this, config, bitmap, isAspectRatio, selectionFilter);
             contentView.addView(singleImageContainer, FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
         } catch (IOException e) {

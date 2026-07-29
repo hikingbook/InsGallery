@@ -51,6 +51,23 @@ public class BitmapLoadUtils {
         return bitmap;
     }
 
+    public static Bitmap applyExifOrientation(@NonNull Context context,
+                                              @NonNull Uri imageUri,
+                                              @NonNull Bitmap bitmap) {
+        int exifOrientation = getExifOrientation(context, imageUri);
+        int exifDegrees = exifToDegrees(exifOrientation);
+        int exifTranslation = exifToTranslation(exifOrientation);
+
+        Matrix matrix = new Matrix();
+        if (exifDegrees != 0) {
+            matrix.preRotate(exifDegrees);
+        }
+        if (exifTranslation != 1) {
+            matrix.postScale(exifTranslation, 1);
+        }
+        return matrix.isIdentity() ? bitmap : transformBitmap(bitmap, matrix);
+    }
+
     public static int calculateInSampleSize(@NonNull BitmapFactory.Options options, int reqWidth, int reqHeight) {
         // Raw height and width of image
         final int height = options.outHeight;
