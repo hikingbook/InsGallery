@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureSelectionConfig;
 
 /**
@@ -27,6 +28,7 @@ public final class InstagramSelectionConfig implements Parcelable {
             return;
         }
         if (selectionConfig != null && selectionConfig.instagramSelectionConfig != null) {
+            origin.putExtra(PictureConfig.EXTRA_CONFIG, selectionConfig);
             origin.setClassName(origin.getComponent().getPackageName(), PictureSelectorInstagramStyleActivity.class.getName());
         }
     }

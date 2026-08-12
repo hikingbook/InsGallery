@@ -188,6 +188,10 @@ public class PictureSelectorInstagramStyleActivity extends PictureBaseActivity i
 
     @Override
     protected void initWidgets() {
+        if (config.instagramSelectionConfig == null) {
+            config.instagramSelectionConfig = InstagramSelectionConfig.createConfig()
+                    .setCurrentTheme(InsGallery.currentTheme);
+        }
         super.initWidgets();
         container = findViewById(R.id.container);
         titleViewBg = findViewById(R.id.titleViewBg);
