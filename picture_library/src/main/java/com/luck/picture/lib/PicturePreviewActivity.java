@@ -529,6 +529,9 @@ public class PicturePreviewActivity extends PictureBaseActivity implements
 
     protected void onSelectNumChange(boolean isRefresh) {
         this.refresh = isRefresh;
+        if (selectData == null) {
+            selectData = new ArrayList<>();
+        }
         boolean enable = selectData.size() != 0;
         if (enable) {
             mTvPictureOk.setEnabled(true);

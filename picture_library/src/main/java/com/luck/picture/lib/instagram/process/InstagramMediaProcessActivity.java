@@ -106,6 +106,7 @@ public class InstagramMediaProcessActivity extends PictureBaseActivity {
 
         if (mSelectMedia == null || mSelectMedia.isEmpty()) {
             finish();
+            return;
         }
 
         FrameLayout contentView = new FrameLayout(this) {
@@ -172,6 +173,9 @@ public class InstagramMediaProcessActivity extends PictureBaseActivity {
 
     @Override
     public void initPictureSelectorStyle() {
+        if (container == null || mTitleBar == null) {
+            return;
+        }
         container.setBackgroundColor(colorPrimary);
         mTitleBar.setBackgroundColor(colorPrimary);
     }
@@ -179,7 +183,7 @@ public class InstagramMediaProcessActivity extends PictureBaseActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        if (mSelectMedia.size() > 0) {
+        if (mSelectMedia != null && !mSelectMedia.isEmpty()) {
             PictureSelector.saveSelectorList(outState, mSelectMedia);
         }
     }
