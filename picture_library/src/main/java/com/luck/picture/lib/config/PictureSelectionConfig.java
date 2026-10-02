@@ -293,6 +293,7 @@ public final class PictureSelectionConfig implements Parcelable {
     }
 
     public PictureSelectionConfig() {
+        initDefaultValue();
     }
 
     /**

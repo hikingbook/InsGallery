@@ -289,6 +289,10 @@ public abstract class PictureBaseActivity extends AppCompatActivity {
      * init Config
      */
     private void initConfig() {
+        // Restored or externally supplied configs may contain an invalid grid span count.
+        if (config.imageSpanCount < 1) {
+            config.imageSpanCount = 4;
+        }
         selectionMedias = config.selectionMedias == null ? new ArrayList<>() : config.selectionMedias;
         if (config.style != null) {
             openWhiteStatusBar = config.style.isChangeStatusBarFontColor;
